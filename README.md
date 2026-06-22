@@ -1,2 +1,2 @@
-# Syrex-Technologies
-Syrex Technologies Website
+# Syrex-Group
+Syrex Group Website
