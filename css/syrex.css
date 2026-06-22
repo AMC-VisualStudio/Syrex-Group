@@ -1,0 +1,2066 @@
+
+/* Ensure the parent section doesn't have a max-width */
+.syrex-slider {width: 100%; max-width: 100%; padding: 0; margin: 0; overflow: hidden;}
+
+/* Force Swiper to fill the entire width of the high-res screen */
+.swiper.myHero {width: 100vw; height: 80vh; /* Adjust height as you like */}
+
+/* The magic for ultra-wide screens */
+.swiper-slide img {width: 100%; height: 100%; display: block; object-fit: cover; /* Keeps aspect ratio while filling 2560px */}
+
+/* Ensure the slide can hold an absolute positioned child */
+.swiper-slide {position: relative; width: 100%; height: 100vh; /* Full screen height like Syrex */}
+
+/* The container that holds the text */
+.hero-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center; /* Vertically centers the text box */
+    padding-left: 10%;    /* Matches your text alignment */
+    z-index: 10;
+}
+
+/* Vertical Gradient Overlay for Text Legibility */
+.swiper-slide::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Gradient starts dark on the left and disappears by the middle */
+    background: linear-gradient(
+        to right, 
+        rgba(0, 0, 0, 0.8) 0%, 
+        rgba(0, 0, 0, 0.6) 20%, 
+        rgba(0, 0, 0, 0.2) 50%, 
+        rgba(0, 0, 0, 0) 100%
+    );
+    z-index: 5; /* Sits between the image (no z-index/1) and the content (10) */
+    pointer-events: none; /* Crucial: lets you click the buttons through this layer */
+}
+
+.hero-content {
+    margin: 0 0 0 1vw;
+    position: relative; /* This is the anchor for the shape */
+    max-width: 535px;
+    color: #fff;
+    z-index: 5; /* Keeps text above the shape */
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+.hero-shape-overlay {
+    position: absolute;
+    width: 650px;
+    height: 396px;
+    background-image: url('images/main-slider/overlay.png');
+    background-repeat: no-repeat;
+    
+    /* ANCHOR TO THE SECTION, NOT THE TEXT */
+    top: 49%;             /* Move to vertical center of the screen */
+    left: 8%;             /* Adjust this to where you want it horizontally */
+    transform: translateY(-50%); /* Perfectly centers it vertically */
+    
+    opacity: 0;
+    z-index: -1;          /* Keeps it behind the hero-content */
+    transition: opacity 1000ms ease; /* Removed 'all' to prevent movement jumps */
+    pointer-events: none;
+}
+
+/* Trigger animation */
+.swiper-slide-active .hero-shape-overlay {opacity: 1;}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.hero-subtitle {font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9; color: #fff;}
+
+/* Refined Button Styling */
+
+.hero-buttons {
+    display: flex;
+    gap: 25px; /* Increased from 15px for better visual separation */
+    margin-top: 20px; /* Ensures space between the subtitle and buttons */
+}
+
+button.btn.btn-primary.open-newsletter.hero-newsletter-btn {
+    margin-top: 1.4rem;
+}
+
+.newsletter-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+.hero-buttons .btn {
+    display: inline-flex;
+    align-items: center;      
+    justify-content: center;    
+    height: 54px; 
+    padding: 0 35px;    
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    min-width: 210px;    
+    line-height: 1; 
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+
+/* Primary Button: Bronze to Navy Hover */
+.btn-primary {background-color: #A1613A; color: #ffffff !important; border: 2px solid #A1613A; }
+
+.btn-primary:hover {
+    background-color: #0B1D3A !important;
+    border-color: #0B1D3A !important;
+    color: #ffffff !important;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* Secondary Button: Outlined */
+.btn-secondary {border: 2px solid #ffffff; color: #ffffff !important; background: transparent;}
+
+.btn-secondary:hover {
+    background-color: #ffffff !important;
+    color: #0B1D3A !important; 
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+.swiper-button-next, 
+.swiper-button-prev {
+    top: 55% !important; /* Move the top edge to the middle of the container */
+    transform: translateY(-50%); /* Pull the button back up by half its own height */
+    margin-top: 0 !important; /* Remove any default Swiper margins that might interfere */
+    z-index: 999;
+    background-color: rgba(255, 255, 255, 0.1); /* Subtle glass effect */
+    width: 60px!important;
+    height: 60px!important;
+    border-radius: 50%;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    color: #ffffff!important; /* Or your brand primary color */
+}
+
+/* Change color/opacity on hover */
+.swiper-button-next:hover, 
+.swiper-button-prev:hover {
+    background-color: rgba(255, 255, 255, 0.3)!important;
+    color: #ffffff!important; /* Or your brand primary color */
+    transform: translateY(-50%) scale(1.1)!important; /* Keeps the vertical centering while scaling */
+}
+.swiper-button-next:after, .swiper-button-prev:after {font-size: 25px!important;}
+.swiper-button-prev {left: 20px!important;}
+.swiper-button-next {right: 20px!important;}
+
+@media (max-width: 768px) {
+    .hero-shape-overlay {
+        display: none; /* Or scale it down with transform: scale(0.5); */
+    }
+}
+
+@media (max-width: 450px) {
+    .hero-container {padding-left: 5%; padding-right: 5%;}
+    .hero-content {max-width: 350px;}
+    .hero-buttons {
+        display: flex;
+        gap: 15px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .btn {width: -webkit-fill-available;}
+    .swiper-button-next {right: 8px;}
+    .swiper-button-next, .swiper-button-prev {width: 20px; height: 20px;}
+    .swiper-button-prev {left: 8px;}
+}
+
+
+/* Force all slider items to have the exact same height */
+.carousel-item, .owl-item {
+    height: 85vh !important; /* Or a fixed height like 600px */
+    overflow: hidden;
+}
+
+/* Ensure the image fills the space regardless of its original size */
+.division-card .card-image, .hero-slide-bg {
+    height: 100%;
+    width: 100%;
+    background-size: cover !important;
+    background-position: center !important;
+    display: block;
+}
+
+/* --- Mobile Specific Tweaks --- */
+@media (max-width: 767px) {
+    /* 1. Prevent the "Jumping" 100vh issue on mobile */
+    .carousel-item, .owl-item {
+        height: 80vh !important; /* Slightly shorter for mobile to show there is content below */
+        min-height: 500px; /* Ensures the card never gets too squashed for the text */
+    }
+
+    /* 2. Adjust the Division Cards for vertical stacking */
+    .division-card {
+        height: 350px !important; /* Shorter cards on mobile so the user doesn't have to scroll forever */
+        margin-bottom: 15px;
+    }
+
+    /* 3. Scale down the text so it fits the smaller width */
+    .division-card h4 {
+        font-size: 2rem;
+    }
+    
+    .division-card p {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+
+    /* 4. Ensure background images stay centered on narrow screens */
+    .hero-slide-bg, .card-image {
+        background-position: center center !important;
+    }
+    .logo-padding {
+        margin: 0 0 1em 0!important;
+    }
+}
+
+/* Ensures FontAwesome icons align perfectly in your navy circles */
+.icon-wrap i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 24px; /* Adjust based on your design preference */
+}
+.divider {
+    height: 1px;
+    background-color: #fff;
+    margin: 10px 0;
+}
+
+/* Custom 5-column grid for Desktop */
+@media (min-width: 992px) {
+    .col-custom-5 {
+        flex: 0 0 20% !important;
+        max-width: 20% !important;
+    }
+}
+
+/* Optional: Adjust for smaller tablets to do 2-1-2 or 3-2 if needed */
+@media (max-width: 991px) and (min-width: 768px) {
+    .col-md-4 {
+        flex: 0 0 33.333% !important;
+        max-width: 33.333% !important;
+    }
+}
+
+
+/* ==========================================================================
+   Client Logos Page Styles
+   ========================================================================== */
+
+/* Client Logo Styling */
+.client-logo-section {
+    background-color: #fff !important; /* Syrex Navy */
+}
+
+.client-logo {
+    max-height: 100px; /* Limits height so logos look uniform */
+    width: auto;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: all 0.4s ease;
+    padding: 10px;
+}
+
+.client-logo:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.05); /* Subtle zoom effect */
+}
+
+/* Mobile adjustment */
+@media (max-width: 768px) {
+    .client-logo {
+        max-height: 60px;
+    }
+}
+
+/* ==========================================================================
+   End Client Logos Page Styles
+   ========================================================================== */ 
+
+/* ==========================================================================
+   Our Divisions Page Styles (Namespaced)
+   ========================================================================== */
+
+.breadcrumb-item + .breadcrumb-item::before {color: #ffffff;}
+
+/* Hero Refinement */
+.divisions-page .page-header {
+    background-color: #001d3d;
+    background-blend-mode: hard-light;
+    display: flex;
+    align-items: center;
+    min-height: 400px;
+    border-bottom: 4px solid #A1613A; /* Syrex Bronze */
+}
+
+/* Premium Semi-Transparent Text Card */
+.header-text-box {
+    background: rgb(11 29 58 / 40%);
+    padding: 45px 50px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* Mobile adjustments so the box doesn't crowd small screens */
+@media (max-width: 576px) {
+    .header-text-box {
+        padding: 30px 20px;
+    }
+}
+
+.divisions-page .page-header h1 {
+    font-size: 3.5rem;
+    letter-spacing: -1px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    color: #fff;
+}
+
+/* Divisions Grid Cards */
+.divisions-page .divisions-grid .card {
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #ffffff;
+    border-top: 3px solid transparent !important;
+    position: relative;
+}
+
+.divisions-page .divisions-grid .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(161, 97, 58, 0.15) !important;
+    border-top: 3px solid #A1613A !important;
+}
+
+/* Icon Box & Images */
+.divisions-page .divisions-grid .icon-box {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+    border-radius: 50%;
+    transition: all 0.4s ease;
+}
+
+.divisions-page .divisions-grid .icon-box img {
+    width: 40px;
+    height: auto;
+    filter: brightness(0.5); /* Makes icon dark grey initially */
+    transition: all 0.4s ease;
+}
+
+/* Card Hover: Icon Box Flip & Color Swap */
+.divisions-page .divisions-grid .card:hover .icon-box {
+    background: #A1613A;
+    transform: rotateY(180deg);
+}
+
+.divisions-page .divisions-grid .card:hover .icon-box img {
+    filter: brightness(0) invert(1); /* Turns icon white */
+}
+
+/* Division Title Underline */
+.divisions-page .divisions-grid h4 {
+    color: #001d3d;
+    margin-bottom: 15px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.divisions-page .divisions-grid h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 30px;
+    height: 2px;
+    background: #dee2e6;
+    transform: translateX(-50%);
+    transition: all 0.3s ease;
+}
+
+.divisions-page .divisions-grid .card:hover h4::after {
+    background: #A1613A;
+    width: 60px;
+}
+
+/* Integrated Section */
+.divisions-page .integrated-practice {
+    background: #ffffff;
+    border-top: 1px solid #dee2e6;
+}
+
+.divisions-page .integrated-practice .image-box img {
+    border: 12px solid #f8f9fa;
+    transition: transform 0.5s ease;
+}
+
+.divisions-page .integrated-practice .image-box:hover img {
+    transform: scale(1.03);
+}
+
+p.text-muted {margin-top: 1.5rem;}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .divisions-page .page-header h1 { font-size: 2.5rem; }
+}
+
+/* ==========================================================================
+   End Our Divisions Page Styles (Namespaced)
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Syrex Protection Page Styles
+   ========================================================================== */
+
+/* Fix for vertical alignment in detailed service sections */
+.detailed-service-item .content-wrap {
+    min-height: 110px; /* Adjust this value if you increase font size later */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Optional: Ensures the icon wrap stays at the top if text grows */
+.detailed-service-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 3rem; /* Standardizes spacing between rows */
+}
+
+/* --- Protection Specific Layout --- */
+.protection-page .hero-subpage { border-bottom: 5px solid #A1613A; }
+
+.protection-page .service-icon-box {
+    font-size: 2rem;
+    color: #A1613A;
+    margin-bottom: 20px;
+}
+
+.protection-page .accent-border-left {
+    border-left: 5px solid #A1613A;
+    padding-left: 30px;
+}
+
+.protection-page .deliverable-panel {padding: 0 15px 15px 0;}
+.protection-page .deliverable-item h5 {padding-left: 20px;}
+
+.protection-page .deliverable-item {
+    display: flex;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.protection-page .deliverable-item:hover {
+    transform: translateY(-5px);
+    background: #fff;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+/* Add extra breathing room to the Detailed Services section */
+.protection-page .detailed-col-left {
+    padding-right: 4rem; /* Specific padding to push text away from the center */
+}
+
+.protection-page .detailed-col-right {
+    padding-left: 4rem; /* Specific padding to pull text away from the bronze line */
+}
+
+/* --- Protection Split CTA (Zero Gap Version) --- */
+.protection-cta-split {
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Forces the row to have no spacing between columns */
+.protection-cta-split .row.g-0 {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.protection-cta-split .row.g-0 > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+/* Ensures the image fills the entire height of the column */
+.protection-cta-split .cta-image-col {
+    display: flex;
+}
+
+.protection-cta-split .cta-image-col img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Crops image to fill the space perfectly */
+    display: block;
+}
+
+.protection-cta-split .cta-content-col {
+    background: linear-gradient(135deg, #000000 0%, #0B1D3A 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3% 8%; /* Responsive padding based on width */
+}
+.cta-inner-wrapper {padding: 0 50px;}
+
+@media (max-width: 991px) {
+    .protection-cta-split .cta-content-col {
+        padding: 50px 30px;
+        text-align: center;
+    }
+    .protection-cta-split .cta-image-col {
+        min-height: 300px;
+    }
+}
+
+/* Mobile Reset: Remove the large side-padding on mobile so it doesn't squish text */
+@media (max-width: 991px) {
+    .protection-page .detailed-col-left,
+    .protection-page .detailed-col-right {
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-bottom: 40px;
+    }
+}
+/* ==========================================================================
+   End Syrex Protection Page Styles
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Syrex Technology Page Styles
+   ========================================================================== */
+
+section.py-5.bg-white.tech-ecosystem {padding-top: 0 !important;}
+
+/* --- Technology Specific Styles --- */
+.technologies-page .hero-subpage { border-bottom: 5px solid #A1613A; }
+
+/* Grid adjustment for 7 items: 3 per row, then 4 per row, or 1 per row on mobile */
+.technologies-page .deliverable-panel { padding: 0 15px 15px 0; }
+
+.technologies-page .tech-accent-line {
+    border-left: 5px solid #A1613A;
+    padding-left: 30px;
+}
+
+/* Spacing for the Tech Ecosystem Header */
+.technologies-page .section-header-spacer {margin-bottom: 35px;}
+
+.tech-ecosystem .pillar-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 40px;
+    height: 100%;
+    border-bottom: 4px solid #eee;
+    transition: all 0.3s ease;
+}
+.tech-ecosystem .pillar-card:hover {
+    border-bottom: 4px solid #A1613A;
+    transform: translateY(-10px);
+}
+.tech-ecosystem .feature-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+.tech-ecosystem .feature-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-weight: 500;
+}
+
+/* --- Detailed Services Horizontal Layout --- */
+.detailed-service-item {
+    display: flex;
+    flex-direction: row; /* Forces horizontal alignment */
+    align-items: flex-start; /* Aligns icon with the top of the heading */
+    margin-bottom: 45px;
+    width: 100%;
+}
+
+.detailed-service-item .icon-wrap {
+    flex: 0 0 50px; /* Fixed width: container will not shrink or grow */
+    width: 50px;
+    height: 50px;
+    background: #fdf8f5; /* Subtle bronze tint */
+    color: #A1613A;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin-right: 25px; /* Gap between icon and text */
+    border: 1px solid rgba(161, 97, 58, 0.1);
+    margin-top: 5px; /* Fine-tunes alignment with the first line of text */
+}
+
+.detailed-service-item .content-wrap {
+    flex: 1; /* Text content fills all remaining horizontal space */
+}
+
+.detailed-service-item h4 {
+    margin-bottom: 8px;
+    font-size: 1.25rem;
+    line-height: 1.2;
+}
+
+/* Right column bronze line spacing adjustment */
+.technologies-page .tech-accent-line {
+    border-left: 5px solid #A1613A;
+    padding-left: 45px; 
+}
+
+/* ==========================================================================
+   End Syrex Technology Page Styles
+   ========================================================================== */
+
+   /* ==========================================================================
+   Syrex Fire protection Page Styles
+   ========================================================================== */
+
+/* Custom spacing for divisional headers */
+.technologies-page .section-header-spacer,
+.fire-safety-page .section-header-spacer {
+    margin-bottom: 30px !important; /* Forces the 30px requested */
+}
+
+   /* ==========================================================================
+   End Syrex Fire protection Page Styles
+   ========================================================================== */
+
+
+/* ==========================================================================
+   About Us Page Styles (Namespaced)
+   ========================================================================== */
+
+/* 1. Hero Refinement */
+.about-page .page-header {
+    background-color: #001d3d; 
+    background-image: linear-gradient(to right, rgba(0, 29, 61, 0.8), rgba(0, 29, 61, 0.4)), 
+                      url('images/background/syrex-about-bg.jpg');
+    background-blend-mode: multiply;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    min-height: 400px;
+    border-bottom: 4px solid #A1613A; /* Consistent Syrex Bronze */
+}
+
+.about-page .page-header h1 {
+    font-size: 3.5rem;
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 1px 2px rgba(0, 0, 0, 0.9);
+}
+
+.about-page .page-header p.lead {
+    color: #fff;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.7);
+}
+
+/* 2. Brand Colors & Accents */
+.about-page .text-primary, 
+.about-page .text-bronze { color: #A1613A !important; }
+
+.about-page .text-bronze-accent { 
+    color: #A1613A !important; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+}
+
+.about-page .border-left-bronze {
+    border-left: 5px solid #A1613A;
+}
+
+/* 3. Benefits List */
+.about-page .custom-bullets li {
+    display: flex;
+    align-items: flex-start;
+}
+
+.about-page .custom-bullets li i {
+    font-size: 1.5rem;
+    margin-right: 20px;
+    margin-top: 5px;
+    width: 30px;
+    text-align: center;
+}
+
+/* 4. Vision & Mission Cards */
+.about-page .vision-mission-wrap {
+    overflow: hidden;
+    position: relative;
+    background-color: #121212;
+}
+
+.about-page .vision-card, 
+.about-page .mission-card {
+    background: rgba(11, 29, 58, 0.38); 
+    border: 1px solid #5E5E5E;
+    border-top: 4px solid #A1613A !important;
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border-radius: 8px;
+}
+
+.about-page .vision-card:hover, 
+.about-page .mission-card:hover {
+    transform: translateY(-5px);
+    border-top-color: #ffffff !important;
+    background: rgba(11, 29, 58, 0.6);
+}
+
+.about-page .leading-relaxed {
+    line-height: 1.8;
+}
+
+/* 5. How We Work: Step Numbers */
+.about-page .work-step {
+    position: relative;
+    padding: 20px;
+}
+
+.about-page .step-num {
+    display: block;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: rgba(161, 97, 58, 0.1); 
+    line-height: 1;
+    margin-bottom: -15px;
+    transition: all 0.3s ease;
+}
+
+.about-page .work-step:hover .step-num {
+    color: rgba(161, 97, 58, 0.3);
+    transform: translateY(-5px);
+}
+
+/* Responsive Alignment */
+@media (min-width: 768px) {
+    .about-page .vision-mission-wrap .row {
+        justify-content: space-between;
+    }
+    .about-page .vision-mission-wrap .col-md-5 {
+        flex: 0 0 48%;
+        max-width: 48%;
+    }
+}
+
+/* ==========================================================================
+   End About Us Page Styles (Namespaced)
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Industries We Serve Page Styles (Namespaced)
+   ========================================================================== */
+
+/* 1. Hero Refinement */
+.industries-page .hero-subpage {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                url('../images/resource/syrexservices-img-08.jpg') center/cover;
+    padding: 100px 0;
+}
+
+/* 2. Industry Card Base */
+.industries-page .industry-card {
+    background: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    height: 100%;
+    border-bottom: 4px solid #A1613A; /* Updated to Syrex Bronze */
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    display: block;
+    backface-visibility: hidden;
+    will-change: transform;
+    margin-bottom: 20px;
+}
+
+/* 3. Card Hover Elevation */
+.industries-page .industry-card:hover {
+    z-index: 10;
+    transform: translateY(-15px);
+    box-shadow: 0 20px 40px rgba(161, 97, 58, 0.15); /* Warm bronze shadow */
+}
+
+.industries-page .industry-section-card {
+    margin-bottom: 20px;
+}
+
+/* 4. Ghost Numbers (Icon) */
+.industries-page .industry-icon {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: rgba(161, 97, 58, 0.5); /* Semi-transparent Bronze */
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+    display: block;
+    font-family: 'Arial Black', sans-serif;
+    border-bottom: 1px solid rgba(161, 97, 58, 0.2);
+    width: fit-content;
+    padding-bottom: 5px;
+}
+
+/* 5. Typography */
+.industries-page .industry-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: #001d3d; /* Syrex Navy */
+    font-weight: 700;
+}
+
+.industries-page .industry-card p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+/* 6. CTA Bridge (Namespaced) */
+.industries-page .syrex-cta-bridge {
+    background: #001d3d;
+    padding: 60px 0;
+    color: #fff;
+}
+
+.industries-page .syrex-cta-bridge .btn-primary {
+    background: #A1613A;
+    border: none;
+    padding: 15px 30px;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.industries-page .syrex-cta-bridge .btn-primary:hover {
+    background: #8e5532;
+    transform: translateY(-2px);
+}
+
+.industries-page h1.display-4.font-weight-bold {
+    color: #fff;
+}
+
+/* ==========================================================================
+   End Industries We Serve Page Styles (Namespaced)
+   ========================================================================== */
+
+/* ==========================================================================
+   Our People Page Unique Styles
+   ========================================================================== */
+
+/* 1. Global People Utilities */
+.people-page .border-bronze { border-color: #a1613a !important; }
+
+.people-page .btn-bronze {
+    background-color: #a1613a;
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 16px;
+    margin: 21px 0 0 0;
+    padding: 12px 30px;
+    display: inline-block;
+}
+
+.people-page .btn-bronze:hover {
+    background-color: #0b1d3a;
+    color: #fff;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(11, 29, 58, 0.2);
+}
+
+/* 2. Hero & Navigation Logic */
+.people-page .hero-subpage { background-blend-mode: multiply; }
+.people-page .people-hero .breadcrumb-item a { color: #5e5e5e; }
+.people-page .people-hero .breadcrumb-item.active { color: #a1613a; }
+.people-page .people-hero .breadcrumb-item + .breadcrumb-item::before { color: #5e5e5e; }
+
+/* 3. Expectations Grid Icons */
+.people-page .expectation-item i {
+    font-size: 2.5rem;
+    color: #0b1d3a; 
+    transition: all 0.3s ease;
+}
+li.breadcrumb-item.active.text-primary {color: #fff!important;}
+
+.people-page .expectation-item:hover i {
+    color: #a1613a; 
+    transform: scale(1.1);
+}
+
+.people-page .expectation-item h5 {
+    color: #121212;
+    margin-top: 15px;
+}
+
+/* 4. Development & Culture Panels (The Layout Logic) */
+.people-page .panel-section .row {
+    display: flex !important;
+    flex-wrap: nowrap; /* Forces desktop side-by-side */
+}
+
+.people-page .panel-section .col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.people-page .panel-content {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    z-index: 1;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: subpixel-antialiased;    
+    will-change: transform;
+}
+
+.people-page .panel-content:hover {
+    transform: scale(1.02);
+    z-index: 2;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.people-page .panel-content h2.left {color: #121212;}
+.people-page .panel-content h2.right {color: #F9F9F9;}
+
+.people-page .bg-dark.panel-content:hover {
+    background-color: #0d2345 !important;
+}
+
+/* 5. Careers CTA */
+.people-page .careers-cta-full {
+    background-color: #eeecec;
+    width: 100%;
+}
+
+/* 6. Responsive Fixes */
+@media (max-width: 768px) {
+    .people-page .panel-section .row {
+        flex-wrap: wrap !important;
+    }
+    .people-page .panel-section .col-md-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .people-page .panel-content {
+        min-height: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .people-page .expectations .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .people-page .expectations .col-md-3 {
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding: 10px;
+    }
+    .people-page .expectation-item i { font-size: 2rem; }
+    .people-page .expectation-item h5 { font-size: 1rem; }
+    .people-page .expectation-item p { font-size: 0.8rem; line-height: 1.2; }
+}
+.people-page h1.display-4.font-weight-bold {
+    color: #fff;
+}
+
+
+/* ==========================================================================
+   End Our People Page Unique Styles
+   ========================================================================== */
+
+/* ==========================================================================
+   Standards & Compliance Page Styles
+   ========================================================================== */
+
+/* 1. Governance & Icon Alignment */
+.compliance-page .panel-content ul li i {
+    flex-shrink: 0; 
+    font-size: 1.25rem;
+    margin-top: 4px;
+    padding: 0 10px 0 0;
+    color: #A1613A; /* Syrex Bronze */
+}
+
+/* 2. Center-Gravity Alignment Logic (Desktop) */
+@media (min-width: 768px) {
+    .compliance-page .panel-section .row {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+    }
+    .compliance-page .panel-section .col-md-6 {
+        width: 50% !important;
+        flex: 0 0 50% !important;
+        display: flex !important;
+    }
+
+    /* Left panel content gravitates to the RIGHT (center line) */
+    .compliance-page .justify-content-md-end .panel-content {
+        margin-left: auto;
+        margin-right: 0;
+        text-align: left;
+    }
+
+    /* Right panel content gravitates to the LEFT (center line) */
+    .compliance-page .justify-content-md-start .panel-content {
+        margin-right: auto;
+        margin-left: 0;
+    }
+}
+
+/* 3. Pillar Cards (3-Column Section) */
+.compliance-page .pillars .bg-light {
+    transition: all 0.4s ease;
+    border-bottom: 5px solid transparent; 
+    backface-visibility: hidden;
+}
+
+.compliance-page .pillars .bg-light:hover {
+    background-color: #fff !important;
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05) !important;
+    border-bottom: 5px solid #0b1d3a; 
+}
+
+.compliance-page .pillars .col-md-4:hover h4 {
+    color: #A1613A;
+    transition: color 0.3s ease;
+}
+
+/* 4. Panel Hover & Image Polish */
+.compliance-page .bg-dark.panel-content:hover {
+    background-color: #0d2345 !important; 
+}
+
+.compliance-page .image-wrapper img {
+    filter: brightness(0.8) contrast(1.1);
+    transition: filter 0.4s ease;
+}
+
+.compliance-page .panel-content:hover .image-wrapper img {
+    filter: brightness(1) contrast(1);
+}
+
+/* 5. Mobile Adjustments */
+@media (max-width: 767px) {
+    .compliance-page .panel-content {
+        padding: 40px 20px !important;
+        max-width: 100% !important;
+    }
+    
+    .compliance-page .col-md-6.border-start {
+        border-left: 0 !important;
+        border-top: 5px solid #A1613A !important;
+    }
+}
+
+.compliance-page h1.display-4.font-weight-bold {
+    color: #fff;
+}
+
+/* ==========================================================================
+   End Standards & Compliance Page Styles
+   ========================================================================== */
+
+/* ==========================================================================
+   Contact Page Unique Styles
+   ========================================================================== */
+
+/* 1. Contact Info & Icons */
+.contact-page .icon-box {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.contact-page .icon-box i {
+    color: #A1613A;
+    font-size: 1.1rem;
+}
+
+.contact-page .contact-info-box a:hover {
+    color: #A1613A !important;
+}
+
+/* 2. Form Container & Inputs */
+.contact-page .form-container {
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.contact-page .form-control, 
+.contact-page .form-select {
+    border-radius: 4px;
+    padding: 12px 15px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.contact-page .form-control:focus, 
+.contact-page .form-select:focus {
+    background: #fff !important;
+    border-color: #A1613A;
+    box-shadow: none;
+    outline: none;
+}
+
+/* 3. Form Feedback (Alerts) */
+.contact-page .form-result {
+    margin-bottom: 20px;
+}
+
+.contact-page .form-result .alert {
+    border-left: 5px solid #A1613A;
+    border-radius: 4px;
+    padding: 15px 20px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.contact-page .form-result .alert-success {
+    background-color: #f8f9fa;
+    color: #1b1b1b;
+}
+
+.contact-page .form-result .alert-danger {
+    background-color: #fff5f5;
+    border-left-color: #dc3545;
+    color: #842029;
+}
+
+/* 4. Image Polish */
+.contact-page .image-wrapper img {
+    filter: grayscale(20%) brightness(0.9);
+    transition: all 0.4s ease;
+}
+
+.contact-page .image-wrapper:hover img {
+    filter: grayscale(0%) brightness(1);
+}
+
+
+/* Video Play Container */
+.video-play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+
+/* The Circular Play Button */
+.play-now .play-icon-box {
+    width: 80px;
+    height: 80px;
+    background-color: #A1613A; /* Syrex Bronze */
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    position: relative;
+    z-index: 10;
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+    padding-left: 5px; /* Visual nudge for the play triangle */
+}
+
+.play-now:hover .play-icon-box {
+    background-color: #0b1d3a; /* Syrex Navy on hover */
+    transform: scale(1.1);
+}
+
+/* The Ripple Animation */
+.play-now {
+    position: relative;
+    display: inline-block;
+}
+
+.play-now .ripple,
+.play-now .ripple:before,
+.play-now .ripple:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    border: 2px solid #A1613A;
+    border-radius: 50%;
+    opacity: 0;
+    z-index: 1;
+    animation: play-ripple 3s infinite;
+}
+
+.play-now .ripple:before { animation-delay: 1s; }
+.play-now .ripple:after { animation-delay: 2s; }
+
+@keyframes play-ripple {
+    0% { width: 80px; height: 80px; opacity: 0.5; }
+    100% { width: 160px; height: 160px; opacity: 0; }
+}
+
+
+/* 5. Mobile Layout */
+@media (max-width: 991px) {
+    .contact-page .form-container {
+        padding: 30px !important;
+        margin-top: 40px;
+    }
+}
+
+.contact-page h1.display-4.font-weight-bold {
+    color: #fff;
+}
+
+/* ==========================================================================
+   End Contact Page Unique Styles
+   ========================================================================== */
+
+
+
+/* ==========================================================================
+   Careers Page Unique Styles
+   ========================================================================== */
+
+/* Careers Pillar Card Hover Effects */
+.careers-page .pillar-card {
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    background-color: #ffffff;
+    cursor: default;
+}
+
+.careers-page .pillar-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1) !important;
+    border-color: #A1613A !important;
+}
+
+/* Icon scaling and color pop on hover */
+.careers-page .pillar-card i {
+    transition: all 0.3s ease;
+}
+
+.careers-page .pillar-card:hover i {
+    transform: scale(1.1);
+    color: #0b1d3a !important; /* Shifts from Bronze to Navy on hover */
+}
+
+/* Text color shift for better focus */
+.careers-page .pillar-card:hover h5 {
+    color: #A1613A;
+}
+
+/* Ensure the View Vacancies button maintains contrast */
+.btn-bronze {
+    background-color: #A1613A !important;
+    color: #ffffff !important;
+    border: none;
+    transition: all 0.3s ease;
+    margin-right: 30px;
+}
+
+.btn-bronze:hover {
+    background-color: #7d4a2b !important; /* A deeper, darker bronze */
+    color: #ffffff !important; /* Forces text to stay white */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Secondary Button (Send your CV) Hover */
+.btn-outline-dark:hover {
+    background-color: #0b1d3a !important; /* Syrex Navy */
+    color: #ffffff !important;
+    border-color: #0b1d3a !important;
+}
+
+.careers-page .row.text-center.mb-5 {
+    margin-bottom: 20px !important;
+}
+
+/* ==========================================================================
+   End Careers Page Unique Styles
+   ========================================================================== */
+
+
+/* ==========================================================================
+   News and Insights Page Unique Styles
+   ========================================================================== */
+
+/* 1. Base State */
+.news-card, .pillar-card {
+    position: relative;
+    z-index: 1;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transform-style: preserve-3d; /* Keeps the badge on top */
+}
+
+/* 2. Combined Hover: Lift + 3D Preservation */
+.news-card:hover, .pillar-card:hover {
+    /* We combine the lift (-10px) with the 3D context */
+    transform: translateY(-10px) rotateX(0.01deg); 
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1) !important;
+    border-color: #A1613A !important;
+}
+
+/* 3. The Badge (Always on top) */
+.news-card .badge, 
+.pillar-card .badge {
+    z-index: 99 !important;
+    /* This pushes it forward so it never sinks behind the card background */
+    transform: translateZ(20px); 
+    position: absolute;
+}
+
+/* 4. The Image (Stays in the background) */
+.news-card .position-relative {
+    overflow: hidden;
+    z-index: 1;
+}
+
+.news-card img {
+    transition: transform 0.5s ease;
+    display: block;
+}
+
+.news-card:hover img {
+    transform: scale(1.1);
+}
+/* ==========================================================================
+   End News and Insights Page Unique Styles
+   ========================================================================== */
+
+/* ==========================================================================
+   Accreditation Page Unique Styles
+   ========================================================================== */
+
+/* Accreditation Card Styling */
+.cert-card {
+    transition: all 0.3s ease;
+    background: #fff;
+    border: 1px solid #dee2e6;
+}
+
+.cert-card:hover {
+    border-color: #A1613A;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08) !important;
+}
+
+.cert-card h6 {
+    color: #0b1d3a;
+    margin-top: 10px;
+}
+
+.btn-outline-navy {
+    color: #0b1d3a;
+    border-color: #0b1d3a;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.btn-outline-navy:hover {
+    background-color: #0b1d3a;
+    color: #fff;
+}
+
+.alert-secondary {
+    background-color: #f8f9fa;
+    border-left: 5px solid #A1613A !important;
+}
+
+/* ==========================================================================
+   End Accreditation Page Unique Styles
+   ========================================================================== */   
+
+/* ==========================================================================
+   Privacy Policy Page Unique Styles
+   ========================================================================== */   
+
+/* Privacy Page Styles */
+
+.privacy-page h1 {color: #ffffff;}
+
+.privacy-page .nav-link {
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    margin-left: -2px; /* Overlap the parent border */
+}
+
+.privacy-page .nav-link:hover {
+    color: #A1613A !important;
+    border-left-color: #A1613A;
+    background: rgba(161, 97, 58, 0.05);
+}
+
+.privacy-page .content-box h4 {
+    color: #0b1d3a;
+    margin-bottom: 1.25rem;
+}
+
+.privacy-page .content-box p, 
+.privacy-page .content-box li {
+    color: #4a4a4a;
+    line-height: 1.8;
+}
+
+.privacy-page ul li {
+    margin-bottom: 0.5rem;
+}
+   
+/* ==========================================================================
+   End Privacy Policy Page Unique Styles
+   ========================================================================== */ 
+
+/* --- Global Styles --- */
+.sub-title { color: #0088cc; font-size: 0.85rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+.main-title { font-weight: 800; color: #212529; font-size: 2rem; margin-bottom: 1.5rem; }
+.text-white-50 {color: #fff;}
+
+/* --- Card Base --- */
+.division-card {
+    position: relative;
+    height: 420px;
+    overflow: hidden;
+    background-color: #111;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+/* Layer 1: The Image (Greyscale by default) */
+.card-image {
+    position: absolute;
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
+    opacity: 0.5;
+    background-size: cover;
+    background-position: center;
+    /* The Greyscale Filter */
+    filter: grayscale(100%);  
+    /* Smooth transition (0.5s is usually the sweet spot) */
+    transition: filter 0.5s ease, transform 0.5s ease;
+    z-index: 1;
+}
+
+.division-card:hover .card-image {
+  filter: grayscale(0%);
+}
+
+/* LAYER 2: The Blue Background (Starts as Top Half) */
+.division-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    
+    /* Initially covers the top 50% */
+    height: 50%; 
+    background: #0B1D3A; /* Syrex Blue */
+    
+    /* Expands downward from top:0 anchor */
+    transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+}
+
+/* LAYER 3: The Stationary Content */
+.card-content {
+    position: relative;
+    z-index: 3;
+    pointer-events: none; /* Allows clicks to go through to the main <a> tag */
+}
+
+.card-content p {
+    line-height: 1.2;
+}
+
+/* --- Hover State --- */
+.division-card:hover::before {
+    height: 100%; /* Expands to cover the bottom half */
+}
+
+.division-card:hover .card-image {
+    filter: grayscale(0%); /* Image colorizes on hover */
+}
+
+/* --- Card Details --- */
+.card-icon {
+    /*width: 50px;*?
+    margin-bottom: 20px;
+    filter: brightness(0) invert(1); /* Keeps icons white */
+    transition: transform 0.4s ease;
+}
+
+.logo-padding {margin: 0 0 2.4em 0;}
+
+.custom-view-btn {
+    pointer-events: auto; /* Re-enable for the button specifically */
+    display: inline-block;
+    padding: 10px 24px;
+    /* border: 2px solid #000000b8; */
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    background-color: #000000b8;
+}
+
+/* Button Bounce & Interaction */
+.division-card:hover .animate-btn {
+    animation: buttonBounce 0.5s ease forwards;
+    background: #A1613A;
+    color: #ffffff;
+}
+
+@keyframes buttonBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.division-card:hover .card-icon {
+    transform: translateY(-5px); /* Subtle icon lift */
+}
+
+/* END SWIPER CSS CODE */
+
+/*******  CTA BRIDGE BANNER  *******/
+  .syrex-cta-bridge {
+    background: linear-gradient(135deg, #000000 0%, #0B1D3A 100%); /* Deep Syrex Blue */
+    padding: 50px 20px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cta-container {
+    max-width: 1100px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+  }
+
+  .cta-content h2 {
+    font-size: 2rem;
+    margin: 0 0 10px 0;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .cta-content p {
+    font-size: 1.1rem;
+    margin: 0;
+    opacity: 0.9;
+    font-weight: 300;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background-color: #A1613A; /* High-contrast action color - adjust to brand */
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .btn-primary:hover {
+    background-color: #ffffff;
+    color: #0B1D3A;
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 850px) {
+    .cta-container {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .cta-content h2 {
+      font-size: 1.75rem;
+    }
+    
+    .btn-primary {
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+/******* END CTA BRIDGE BANNER  *******/
+
+/******* SYTREX PILLARS SECTION *******/
+.syrex-pillars {
+    padding: 60px 20px 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .section-header h2 {
+    font-size: 2.5rem;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .pillar-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+  }
+  .pillar-card {
+    background: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    flex: 1 1 300px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    text-align: center;
+    /*transition: transform 0.3s ease;*/
+    border-top: 4px solid #0056b3; /* Change to Syrex brand blue */
+  }
+
+/* 1. This is the 'Resting' state */
+.pillar-card.active {
+  /* This ensures that once revealed, any transform changes (like hover) 
+     reset quickly in 0.3s instead of the slow 0.8s */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 2. This is the 'Hover' state */
+.pillar-card.active:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  /* Keep this fast as well */
+  transition: transform 0.3s ease;
+}
+
+/*  .pillar-card:hover {
+    transform: translateY(-10px);
+  }*/
+  .icon {
+    color: #0056b3; /* Change to Syrex brand blue */
+    margin-bottom: 20px;
+  }
+  .pillar-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #1a1a1a;
+  }
+  .pillar-card p {
+    line-height: 1.6;
+    color: #666;
+    font-size: 0.95rem;
+  }
+  @media (max-width: 768px) {
+    .section-header h2 { font-size: 2rem; }
+  }
+/******* END SYREX PILLARS SECTION *******/
+
+/******* UNIOFIED CARDS SECTION *******/
+.syrex-unified-section {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 60px 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Industries Strip - Integrated */
+.ind-strip {
+    padding: 15px 0;
+    background-color: #a1613a;
+    margin-bottom: 60px;
+    overflow: hidden;
+    display: flex;
+}
+
+.strip-track {
+    display: flex;
+    gap: 50px;
+    animation: scroll 40s linear infinite;
+    white-space: nowrap;
+}
+
+.strip-track span {
+    background-color: #fff;
+    padding: 5px 15px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #000000;
+    border-radius: 10px;
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Content Wrapper */
+.syrex-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-bottom: 60px;
+}
+
+/* Proof Points */
+.proof-header h2 {
+    font-size: 2rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.proof-list {
+    list-style: none;
+    padding: 0;
+}
+
+.proof-item {
+    margin-bottom: 25px;
+    padding-left: 20px;
+    border-left: 2px solid #a1613a;
+}
+
+.proof-item strong { display: block; font-size: 1.1rem; margin-bottom: 5px; }
+.proof-item span { color: var(--text-muted); font-size: 0.9rem; }
+
+/* Improved Insights Block Cards */
+.insights-grid {
+    display: grid;
+    gap: 20px;
+}
+
+.insight-card {
+    background: rgb(237 237 237 / 76%);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                box-shadow 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+                border-color 0.4s ease;
+    position: relative;
+    overflow: hidden; /* Clips the number so it stays inside the card */
+    cursor: pointer;
+    z-index: 1;
+}
+
+/* The "Sliding Bar" at the top */
+.insight-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: #a1613a;
+    transition: width 0.4s ease;
+    z-index: 3; /* Keeps it above everything else */
+}
+
+.insight-card:hover::before {
+    width: 100%;
+}
+
+/* The Number - Positioned higher to prevent "falling off" */
+.insight-card::after {
+    content: attr(data-number);
+    position: absolute;
+    bottom: -5px; /* Moved up slightly */
+    right: 5px;
+    font-size: 6.5rem; /* Slightly smaller to fit better */
+    font-weight: 900;
+    line-height: 0.8; /* Tighter line height to pull the number up */
+    z-index: -1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(161, 97, 58, 0.15);
+    font-family: 'Arial Black', sans-serif;
+    transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.insight-card:hover {
+    transform: translateY(-8px);
+    border-color: #a1613a;
+    /* Soft bronze-tinted shadow */
+    box-shadow: 0 15px 30px rgba(161, 97, 58, 0.15);
+}
+
+.insight-card:hover::after {
+    -webkit-text-stroke: 1px #a1613a;
+    opacity: 0.4;
+    /* Move the number upward more aggressively on hover */
+    transform: translateY(-15px) scale(1.1); 
+}
+
+/* Ensure content stays above the number */
+.insight-card h4, 
+.insight-card p, 
+.insight-card .tag {
+    position: relative;
+    z-index: 2;
+}
+
+.scroll-top .fa, 
+.scroll-top .fas {
+    font-family: "Font Awesome 5 Free" !important; /* Adjust to "Font Awesome 6 Free" if updated */
+    font-weight: 900 !important;
+    font-style: normal !important;
+    /* 2. Reset any accidental rotations */
+    transform: none !important; 
+    display: inline-block;
+}
+
+/* 3. Button Styling to match Syrex Tech */
+.scroll-top {
+    width: 55px;
+    height: 55px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    font-size: 18px;
+    border-radius: 50%;
+    z-index: 99;
+    /* Changed display to flex to perfectly center the arrow */
+    display: none; 
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+    background: #A1613A;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse 2s infinite;
+    border: none;
+    outline: none;
+}
+
+/* THE FIX: Specifically targets the arrow inside the button */
+.scroll-top span.fa {
+    font-family: "Font Awesome 5 Free" !important; /* Forces the Icon font over Lato */
+    font-weight: 900 !important;
+    transform: none !important; /* Resets any 'point-left' rotations */
+    line-height: 1 !important;   /* Prevents vertical misalignment */
+    display: inline-block;
+    margin-top: -2px; /* Visual tweak to center the chevron vertically */
+}
+
+.scroll-top:hover {
+    background: #5E5E5E; /* Syrex Navy on hover */
+    color: #fff;
+}
+
+
+/* --- MOBILE RESPONSIVENESS --- */
+    
+    @media (max-width: 1024px) {
+        .main-grid {
+            gap: 40px;
+        }
+        .proof-header h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 1.7rem;
+        }
+        .syrex-unified-section {
+            padding: 40px 0;
+        }
+
+        /* Stack columns vertically */
+        .main-grid {
+            grid-template-columns: 1fr;
+            gap: 50px;
+        }
+
+        .proof-header {
+            text-align: center;
+        }
+
+        .proof-item {
+            text-align: left;
+        }
+
+        /* Scale down the decorative numbers so they don't overwhelm mobile screens */
+        .insight-card::after {
+            font-size: 5rem;
+            bottom: -5px;
+            right: 5px;
+        }
+
+        /* Adjust padding for smaller tap targets */
+        .insight-card {
+            padding: 25px;
+        }
+
+        /* Slow down or stop the scroll on mobile if it's distracting, 
+           or keep it but ensure the font is readable */
+        .strip-track span {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .proof-header h2 {
+            font-size: 1.8rem;
+        }
+        
+        /* Make the tag more prominent on small screens */
+        .tag {
+            font-size: 0.6rem;
+            letter-spacing: 0.5px;
+        }
+        .protection-page .deliverable-panel {padding: 0 5px 15px 5px;}
+        .call-to-action-section .outer-container {text-align: center; padding: 0 45px;}
+        .call-to-action-section .outer-container .clearfix {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    }
+/******* END UNIOFIED CARDS SECTION *******/
+
+
+/* --- SYREX TYPOGRAPHY RESET --- */
+
+/* 1. Force Montserrat on all Headings */
+h1, h2, h3, h4, h5, h6, 
+.h1, .h2, .h3, .h4, .h5, .h6,
+[class*="title"], 
+[class*="heading"],
+.hero-title,
+.news-card h4,
+.pillar-card h5 {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 700 !important;
+}
+
+/* 2. Force Lato on all Body text, Buttons, and UI elements */
+body, 
+p, 
+li, 
+span, 
+label, 
+input, 
+textarea, 
+.btn, 
+.hero-subtitle,
+.nav-link,
+.footer-widget p {
+    font-family: 'Lato', sans-serif !important;
+    font-weight: 400 !important;
+}
+
+/* 3. Handle specific weight for buttons and bold text */
+strong, 
+b, 
+.btn, 
+.nav-link {
+    font-weight: 700 !important;
+}
+
+/* 4. Fix for the Menu - often hardcoded to Poppins in global.css */
+.main-menu .navigation > li > a,
+.sticky-header .main-menu .navigation > li > a {
+    font-family: 'Lato', sans-serif !important;
+    font-weight: 600 !important;
+}
+/* Refined Typography Spacing */
+h1, h2, h3 {
+    letter-spacing: -0.02em; /* Tighter headings look more modern and high-end */
+    line-height: 1.2;
+}
+
+p {
+    line-height: 1.7; /* Lato is more readable with slightly more space between lines */
+    margin-bottom: 1.5rem;
+}
+
+.hero-title {
+    letter-spacing: -0.01em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3); /* Adds legibility against busy hero images */
+}
